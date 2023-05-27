@@ -1,6 +1,6 @@
 .idea
 .env
-.pem
+*.pem
 config/nginx/conf.d/*
 data/*
 !*.gitkeep
