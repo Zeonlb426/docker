@@ -1,7 +1,6 @@
 FROM postgres:12
 
-RUN apt update && apt install -y --fix-missing \
-    postgis postgresql-12-postgis-2.5
+RUN apt update && apt install -y --fix-missing
 #    apt-utils \
 #    gnupg2 \
 #    wget

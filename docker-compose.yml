@@ -26,8 +26,7 @@ services:
     tty: true
     working_dir: /opt/server
     volumes:
-      - ./app:/opt/server
-      - ./static:/opt/static
+      - ${PROJECT_DIR}:/opt/server
     env_file:
       - .env
     expose:
