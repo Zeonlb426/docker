@@ -14,13 +14,14 @@ services:
       - "80:80"
       - "443:443"
     links:
-      - nodejs
+      - front
+      - back
 
 
   # |*********************************************|
-  # |------------ Server NodeJS (App) ------------|
-  nodejs:
-    container_name: nodejs
+  # |------------ Server NodeJS (Front) ------------|
+  front:
+    container_name: front
     build:
       context: ./config/nodejs/16
     tty: true
@@ -31,6 +32,22 @@ services:
       - .env
     expose:
       - '3000'
+
+
+  # |*********************************************|
+  # |------------ Server NodeJS (Back) ------------|
+  back:
+    container_name: back
+    build:
+      context: ./config/nodejs/16
+    tty: true
+    working_dir: /opt/server
+    volumes:
+      - ${PROJECT_DIR}:/opt/server
+    env_file:
+      - .env
+    expose:
+      - '3001'
 
 
   # |**************************************************|
