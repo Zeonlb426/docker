@@ -1,4 +1,4 @@
-FROM node:16.10.0-alpine
+FROM node:current-alpine3.16
 RUN apk add --no-cache tzdata
 ENV TZ Europe/Kyiv
 ENV NODE_PATH /opt/server/node_modules
