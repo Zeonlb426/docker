@@ -16,6 +16,7 @@ services:
     links:
       - front
       - back
+      - api
 
 
   # |*********************************************|
@@ -49,6 +50,20 @@ services:
     expose:
       - '3001'
 
+  # |*********************************************|
+  # |------------ Server NodeJS (API) ------------|
+  api:
+    container_name: api
+    build:
+      context: ./config/nodejs/16
+    tty: true
+    working_dir: /opt/server
+    volumes:
+      - ${PROJECT_DIR}:/opt/server
+    env_file:
+      - .env
+    expose:
+      - '3002'
 
   # |**************************************************|
   # |------------ Server DataBase Postgres ------------|
