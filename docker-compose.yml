@@ -35,21 +35,6 @@ services:
       - '3000'
 
 
-  # |**********************************************|
-  # |------------ Server NodeJS (Back) ------------|
-  back:
-    container_name: back
-    build:
-      context: ./config/nodejs/16
-    tty: true
-    working_dir: /opt/server
-    volumes:
-      - ${PROJECT_DIR}:/opt/server
-    env_file:
-      - .env
-    expose:
-      - '3000'
-
   # |*********************************************|
   # |------------ Server NodeJS (API) ------------|
   api:
