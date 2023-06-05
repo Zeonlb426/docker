@@ -8,22 +8,22 @@ services:
     volumes:
       - ./config/nginx/conf.d/:/etc/nginx/conf.d
       - ./config/nginx/ssl/:/etc/nginx/ssl
-      # - ./config/nginx/proxy_params:/etc/nginx/proxy_params
+      - ./config/nginx/proxy_params:/etc/nginx/proxy_params
       - ${PROJECT_DIR}:/var/www
     ports:
       - "80:80"
       - "443:443"
     links:
-      - front
+      - client
       - api
 
 
-  # |***********************************************|
-  # |------------ Server NodeJS (Front) ------------|
-  front:
-    container_name: front
+  # |**************************************************|
+  # |------------ Server NodeJS (Frontend) ------------|
+  client:
+    container_name: client
     build:
-      context: ./config/nodejs/16
+      context: ./config/nodejs
     tty: true
     working_dir: /opt/server
     volumes:
@@ -34,12 +34,12 @@ services:
       - '3000'
 
 
-  # |*********************************************|
-  # |------------ Server NodeJS (API) ------------|
+  # |*****************************************************|
+  # |------------ Server NodeJS (API Backend) ------------|
   api:
     container_name: api
     build:
-      context: ./config/nodejs/16
+      context: ./config/nodejs
     tty: true
     working_dir: /opt/server
     volumes:
@@ -48,20 +48,29 @@ services:
       - .env
     expose:
       - '3000'
+
 
   # |**************************************************|
   # |------------ Server DataBase Postgres ------------|
   postgres:
     container_name: postgres
-    build:
-      context: ./config/postgres/12
+    image: postgres:latest
+    restart: always
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data/pgdata
+      - ./data/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
+
+
+  # |*****************************************************|
+  # |------------- Server DB Management Tool -------------|
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:8080
 
 
   # |***********************************************|

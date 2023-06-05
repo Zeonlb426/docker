@@ -120,9 +120,9 @@ docker-compose up --build -d
 
 <br>
 
-- 5.3 Заходим в нутрь контейнера front c node.js
+- 5.3 Заходим в нутрь контейнера **client** c node.js
 ```
-docker-compose exec front sh
+docker-compose exec client sh
 ```
 <br>
 
