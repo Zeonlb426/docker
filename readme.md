@@ -156,8 +156,11 @@ npm run dev
 
 - 5.8 После запуска сервера Next, открываем браузер и заходим на домен вашего приложения. Должна отобразиться стартовая страница фреймворка Next.js
 
+Смена владельца директории
 (sudo chown -R youreusername /path/to/working/directory)
 
+Установка пользователя root (для wsl)
+ubuntu2204 config --default-user root
 
  
 
