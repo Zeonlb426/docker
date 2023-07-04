@@ -41,6 +41,11 @@ services:
     build:
       context: ./config/nodejs
     tty: true
+    command: >
+      sh -c "cd instagram/api
+      && npm install
+      && npm run migrate
+      && npm run dev"
     working_dir: /opt/server
     volumes:
       - ${PROJECT_DIR}:/opt/server
