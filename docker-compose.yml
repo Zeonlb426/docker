@@ -13,9 +13,12 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    links:
+    depends_on:
       - client
       - api
+      - minio
+    networks:
+      - dev
 
 
   # |**************************************************|
@@ -32,6 +35,8 @@ services:
       - .env
     expose:
       - '3000'
+    networks:
+      - dev
 
 
   # |*****************************************************|
@@ -53,6 +58,10 @@ services:
       - .env
     expose:
       - '3000'
+    depends_on:
+      - postgres
+    networks:
+      - dev
 
 
   # |**************************************************|
@@ -68,6 +77,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
     ports:
       - "5432:5432"
+    networks:
+      - dev
 
 
   # |*****************************************************|
@@ -77,7 +88,7 @@ services:
     restart: always
     ports:
       - 8080:8080
-    links:
+    depends_on:
       - postgres
 
   # |***********************************************|
@@ -96,7 +107,8 @@ services:
     ports:
       - 9000:9000
       - 9001:9001
-
+    networks:
+      - dev
 
   # |***********************************************|
   # |------------ Server DataBase MySQL ------------|
@@ -137,3 +149,7 @@ services:
   #     - ./data/redis:/data
   #   ports:
   #     - "6379:6379"
+  
+networks:
+  dev:
+    driver: bridge
